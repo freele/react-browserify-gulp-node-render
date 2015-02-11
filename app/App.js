@@ -42,6 +42,7 @@ var App = React.createClass({
 	render: function() {
 		return (
 			<div>
+        <div>Test 12</div>
         {this.state.messages.map(this.renderMessages)}
         <form onSubmit={this.addMessage}>
           <input ref="newMessage" type="text" value={this.state.newMessage} onChange={this.updateNewMessage}/>
