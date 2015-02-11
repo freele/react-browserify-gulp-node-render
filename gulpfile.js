@@ -14,6 +14,7 @@ var shell = require('gulp-shell');
 var glob = require('glob');
 var livereload = require('gulp-livereload');
 var jasminePhantomJs = require('gulp-jasmine2-phantomjs');
+var server = require('gulp-develop-server');
 
 // External dependencies you do not want to rebundle while developing,
 // but include in your application deployment
@@ -50,6 +51,7 @@ var browserifyTask = function (options) {
       .pipe(gulpif(!options.development, streamify(uglify())))
       .pipe(gulp.dest(options.dest))
       .pipe(gulpif(options.development, livereload()))
+      .pipe(server({path: './server/server.js'})) // Afrer loading vendor bundle start server
       .pipe(notify(function () {
         console.log('APP bundle built in ' + (Date.now() - start) + 'ms');
       }));
@@ -62,6 +64,7 @@ var browserifyTask = function (options) {
   }
       
   rebundle();
+  
 
   // We create a separate bundle for our dependencies as they
   // should not rebundle on file changes. This only happens when
@@ -117,7 +120,9 @@ var browserifyTask = function (options) {
       .pipe(gulp.dest(options.dest))
       .pipe(notify(function () {
         console.log('VENDORS bundle built in ' + (Date.now() - start) + 'ms');
-      }));
+      })
+      
+      );
     
   }
   
@@ -151,7 +156,7 @@ gulp.task('default', function () {
 
   browserifyTask({
     development: true,
-    src: './app/main.js',
+    src: './app/main.jsx',
     dest: './build'
   });
   
@@ -167,7 +172,7 @@ gulp.task('deploy', function () {
 
   browserifyTask({
     development: false,
-    src: './app/main.js',
+    src: './app/main.jsx',
     dest: './dist'
   });
   

@@ -1,7 +1,9 @@
 /** @jsx React.DOM */
 var React = require('react');
-var Store = require('./Store.js');
-var actions = require('./actions.js');
+var Store = require('./Store.jsx');
+var actions = require('./actions.jsx');
+
+
 
 var App = React.createClass({
   getInitialState: function () {
@@ -39,15 +41,29 @@ var App = React.createClass({
       <div>{message}</div>
     );
   },
+
 	render: function() {
 		return (
-			<div>
-        <div>Test 12</div>
-        {this.state.messages.map(this.renderMessages)}
-        <form onSubmit={this.addMessage}>
-          <input ref="newMessage" type="text" value={this.state.newMessage} onChange={this.updateNewMessage}/>
-        </form>
-      </div>
+
+      <html>
+        <head>
+          <link rel="stylesheet" href="/main.css"/>
+        </head>
+        <body>
+          <div>
+            <div>Test 17</div>
+            {this.state.messages.map(this.renderMessages)}
+            <form onSubmit={this.addMessage}>
+              <input ref="newMessage" type="text" value={this.state.newMessage} onChange={this.updateNewMessage}/>
+            </form>
+          </div>
+
+          <script type="text/javascript" src="/vendors.js"></script>
+          <script type="text/javascript" src="/main.js"></script>
+        </body>
+      </html>
+
+
 		);
 	}
 	

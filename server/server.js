@@ -9,10 +9,12 @@ var bodyParser = require('body-parser');
 var url = require('url');
 
 require('node-jsx').install({
-	extension: '.js'
+	extension: '.jsx'
 });
 var ReactAsync = require('react-async');
-var App = require('../app/App.js');
+var React = require('react/addons');
+var App = React.createFactory(require('../app/App.jsx'));
+// var App = require('../app/App.jsx');
 
 var app = express();
 
@@ -30,27 +32,39 @@ var connectionString = 'mongodb://localhost:27017/' + dbName;
 	app.set('view engine', 'ejs');
 
 	// uncomment after placing your favicon in /public
-	//app.use(favicon(__dirname + '/public/favicon.ico'));
+	// app.use(favicon(__dirname + '/public/favicon.ico'));
 	app.use(logger('dev'));
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({
 		extended: false
 	}));
 	app.use(cookieParser());
-	// app.use(express.static(path.join(__dirname, '../build')));
+	app.use(express.static(path.join(__dirname, '../build')));
 
 	// app.use('/api', posts); implement our api (later)
 
-	app.use(function(req, res) {
-		console.log('TEST ROUTING');
-		var path = url.parse(req.url).pathname;
-		console.log('TEST ROUTING', path);
-		ReactAsync.renderComponentToStringWithAsyncState(App({
-			path: path
-		}), function(err, markup) {
-			res.send('<!DOCTYPE html>' + markup);
-		});
+	app.get('/', function(req, res){
+		console.log('RETURN RENDERED');
+		// React.renderToString takes your component
+	    // and generates the markup
+		var reactHtml = React.renderToString(App({}));
+	    // Output html rendered by react
+		// console.log(myAppHtml);
+	    res.send('<!doctype html>' + reactHtml);
 	});
+
+	// app.get('*', function(req, res) {
+	// 	console.log('Send data');
+	// 	res.send('<!DOCTYPE html>' + React.renderToString(App({})));
+	// 	// console.log('TEST ROUTING');
+	// 	// var path = url.parse(req.url).pathname;
+	// 	// console.log('TEST ROUTING', path);
+	// 	// ReactAsync.renderComponentToStringWithAsyncState(App({
+	// 	// 	path: path
+	// 	// }), function(err, markup) {
+	// 	// 	res.send('<!DOCTYPE html>' + markup);
+	// 	// });
+	// });
 
 
 	// catch 404 and forward to error handler
