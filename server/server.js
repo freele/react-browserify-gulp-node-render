@@ -24,6 +24,8 @@ var ReactAsync = require('react-async');
 var React = require('react/addons');
 // var App = React.createFactory(require('../app/App.jsx'));
 var App = require('../app/App.jsx');
+var Home = require('../app/components/Home.jsx');
+var Item1 = require('../app/components/Item1.jsx');
 
 var app = express();
 
@@ -75,9 +77,8 @@ var connectionString = 'mongodb://localhost:27017/' + dbName;
 
 			var routes = 
 			  React.createElement(Route, {name: "app", path: "/", handler: App}, 
-			    React.createElement(Route, {name: "item1", handler: App}), 
-			    React.createElement(Route, {name: "item2", handler: App}), 
-			    React.createElement(DefaultRoute, {handler: App})
+			    React.createElement(Route, {name: "item1", handler: Item1}), 
+			    React.createElement(DefaultRoute, {handler: Home})
 			  )
 
 
