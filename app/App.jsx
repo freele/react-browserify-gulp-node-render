@@ -42,26 +42,40 @@ var App = React.createClass({
     );
   },
 
+  // render: function() {
+  //   return (
+
+  //     <html>
+  //       <head>
+  //         <link rel="stylesheet" href="/main.css"/>
+  //       </head>
+  //       <body>
+  //         <div>
+  //           <div>Test 17</div>
+  //           {this.state.messages.map(this.renderMessages)}
+  //           <form onSubmit={this.addMessage}>
+  //             <input ref="newMessage" type="text" value={this.state.newMessage} onChange={this.updateNewMessage}/>
+  //           </form>
+  //         </div>
+
+  //         <script type="text/javascript" src="/vendors.js"></script>
+  //         <script type="text/javascript" src="/main.js"></script>
+  //       </body>
+  //     </html>
+
+
+  //   );
+  // }
 	render: function() {
 		return (
 
-      <html>
-        <head>
-          <link rel="stylesheet" href="/main.css"/>
-        </head>
-        <body>
           <div>
-            <div>Test 17</div>
+            <div>Test 18</div>
             {this.state.messages.map(this.renderMessages)}
             <form onSubmit={this.addMessage}>
               <input ref="newMessage" type="text" value={this.state.newMessage} onChange={this.updateNewMessage}/>
             </form>
           </div>
-
-          <script type="text/javascript" src="/vendors.js"></script>
-          <script type="text/javascript" src="/main.js"></script>
-        </body>
-      </html>
 
 
 		);

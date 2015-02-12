@@ -95,6 +95,7 @@ var browserifyTask = function (options) {
 	      }));
   	};
 
+    // Uncomment after fixing tests implementation
     testBundler = watchify(testBundler);
     testBundler.on('update', rebundleTests);
     rebundleTests();

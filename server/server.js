@@ -28,7 +28,7 @@ var connectionString = 'mongodb://localhost:27017/' + dbName;
 // mongoose.connect(connectionString, function() {
 
 	// view engine setup
-	app.set('views', path.join(__dirname, '../build'));
+	app.set('views', path.join(__dirname, 'views'));
 	app.set('view engine', 'ejs');
 
 	// uncomment after placing your favicon in /public
@@ -49,8 +49,10 @@ var connectionString = 'mongodb://localhost:27017/' + dbName;
 	    // and generates the markup
 		var reactHtml = React.renderToString(App({}));
 	    // Output html rendered by react
-		// console.log(myAppHtml);
-	    res.send('<!doctype html>' + reactHtml);
+		console.log(reactHtml);
+		res.render('index', {body: reactHtml});
+
+	    // res.send('<!doctype html>' + reactHtml);
 	});
 
 	// app.get('*', function(req, res) {
