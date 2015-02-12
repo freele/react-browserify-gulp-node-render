@@ -21,7 +21,8 @@ var server = require('gulp-develop-server');
 var dependencies = [
 	'react',
   'react-addons',
-  'flux-react'
+  'flux-react',
+  'react-router'
 ];
 
 var browserifyTask = function (options) {

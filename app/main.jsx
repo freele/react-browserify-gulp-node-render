@@ -1,4 +1,8 @@
 /** @jsx React.DOM */
 var React = require('react');
 var App = require('./App.jsx');
-React.render(<App/>, document.body);
+
+App(function(RoutedApp){
+	console.log(RoutedApp);
+	React.render(<RoutedApp/>, document.body);
+});

@@ -17,6 +17,7 @@
     "optimist": "0.6.0",
     "react-async": "^2.0.1",
     "react-page-middleware": "git://github.com/facebook/react-page-middleware.git",
+    "react-router": "^0.12.0",
     "request": "*",
     "serve-favicon": "2.2.0",
     "serve-static": "1.7.1"

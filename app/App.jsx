@@ -3,7 +3,34 @@ var React = require('react');
 var Store = require('./Store.jsx');
 var actions = require('./actions.jsx');
 
+var Router = require('react-router');
+var DefaultRoute = Router.DefaultRoute;
+var Link = Router.Link;
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
 
+
+var Item1 = React.createClass({
+  render: function() {
+    return (
+      <div>Item1</div>
+    );
+  }
+});
+var Item2 = React.createClass({
+  render: function() {
+    return (
+      <div>Item2</div>
+    );
+  }
+});
+var Home = React.createClass({
+  render: function() {
+    return (
+      <div>Home</div>
+    );
+  }
+});
 
 var App = React.createClass({
   getInitialState: function () {
@@ -75,12 +102,30 @@ var App = React.createClass({
             <form onSubmit={this.addMessage}>
               <input ref="newMessage" type="text" value={this.state.newMessage} onChange={this.updateNewMessage}/>
             </form>
-          </div>
+            <header>
+              <ul>
+                <li><Link to="item1">Item1</Link></li>
+              </ul>
+            </header>
 
+            {/* this is the important part */}
+            <RouteHandler/>
+          </div>
 
 		);
 	}
 	
 });
-	
+
+
+var routes = (
+  <Route name="app" path="/" handler={App}>
+    <Route name="item1" handler={Item1}/>
+    <Route name="item2" handler={Item2}/>
+    <DefaultRoute handler={Home}/>
+  </Route>
+);
+
+
 module.exports = App;
+

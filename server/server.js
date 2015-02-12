@@ -8,13 +8,22 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var url = require('url');
 
+
+var Router = require('react-router');
+var DefaultRoute = Router.DefaultRoute;
+var Link = Router.Link;
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
+
+
+
 require('node-jsx').install({
 	extension: '.jsx'
 });
 var ReactAsync = require('react-async');
 var React = require('react/addons');
-var App = React.createFactory(require('../app/App.jsx'));
-// var App = require('../app/App.jsx');
+// var App = React.createFactory(require('../app/App.jsx'));
+var App = require('../app/App.jsx');
 
 var app = express();
 
@@ -43,14 +52,47 @@ var connectionString = 'mongodb://localhost:27017/' + dbName;
 
 	// app.use('/api', posts); implement our api (later)
 
+			// var App = React.createClass({displayName: "Item1",
+			//   render: function () {
+			//     return React.createElement("div", null, "Hi");
+			//   }
+			// });
+
+			// var routes = (
+			//   React.createElement(Route, {handler: App, path: "/"})
+			// );
+
+			// // if using express it might look like this
+			// app.use(function (req, res) {
+			//   // pass in `req.url` and the router will immediately match
+			//   Router.run(routes, req.url, function (Handler) {
+			//     var content = React.renderToString(React.createElement(Handler, null));
+			//     res.render('main', {content: content});
+			//   });
+			// });
+
 	app.get('/', function(req, res){
+
+			var routes = 
+			  React.createElement(Route, {name: "app", path: "/", handler: App}, 
+			    React.createElement(Route, {name: "item1", handler: App}), 
+			    React.createElement(Route, {name: "item2", handler: App}), 
+			    React.createElement(DefaultRoute, {handler: App})
+			  )
+
+
+		Router.run(routes, req.url, function(Handler) {
+			var content = React.renderToString( React.createElement(Handler, null) );
+			res.render('index', {
+				body: content
+			});
+		});
+
 		console.log('RETURN RENDERED');
 		// React.renderToString takes your component
 	    // and generates the markup
-		var reactHtml = React.renderToString(App({}));
-	    // Output html rendered by react
-		console.log(reactHtml);
-		res.render('index', {body: reactHtml});
+		
+
 
 	    // res.send('<!doctype html>' + reactHtml);
 	});
