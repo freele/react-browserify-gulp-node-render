@@ -8,22 +8,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var url = require('url');
 
-
 var Router = require('react-router');
-var DefaultRoute = Router.DefaultRoute;
-var Link = Router.Link;
-var Route = Router.Route;
-var RouteHandler = Router.RouteHandler;
-
 
 
 require('node-jsx').install({
 	extension: '.jsx'
 });
 var React = require('react/addons');
-// var App = React.createFactory(require('../app/App.jsx'));
-// var App = require('../app/App.jsx');
 var routes = require('../app/routes.jsx');
+
+
 
 var app = express();
 
@@ -50,28 +44,7 @@ var connectionString = 'mongodb://localhost:27017/' + dbName;
 	app.use(cookieParser());
 	app.use(express.static(path.join(__dirname, '../build')));
 
-	// app.use('/api', posts); implement our api (later)
-
-			// var App = React.createClass({displayName: "Item1",
-			//   render: function () {
-			//     return React.createElement("div", null, "Hi");
-			//   }
-			// });
-
-			// var routes = (
-			//   React.createElement(Route, {handler: App, path: "/"})
-			// );
-
-			// // if using express it might look like this
-			// app.use(function (req, res) {
-			//   // pass in `req.url` and the router will immediately match
-			//   Router.run(routes, req.url, function (Handler) {
-			//     var content = React.renderToString(React.createElement(Handler, null));
-			//     res.render('main', {content: content});
-			//   });
-			// });
-
-	app.get('/', function(req, res){
+	app.get('*', function(req, res){
 
 		console.log('TEST URL', req.path);
 		Router.run(routes, req.url, function(Handler) {
@@ -82,26 +55,7 @@ var connectionString = 'mongodb://localhost:27017/' + dbName;
 		});
 
 		console.log('RETURN RENDERED');
-		// React.renderToString takes your component
-	    // and generates the markup
-		
-
-
-	    // res.send('<!doctype html>' + reactHtml);
 	});
-
-	// app.get('*', function(req, res) {
-	// 	console.log('Send data');
-	// 	res.send('<!DOCTYPE html>' + React.renderToString(App({})));
-	// 	// console.log('TEST ROUTING');
-	// 	// var path = url.parse(req.url).pathname;
-	// 	// console.log('TEST ROUTING', path);
-	// 	// ReactAsync.renderComponentToStringWithAsyncState(App({
-	// 	// 	path: path
-	// 	// }), function(err, markup) {
-	// 	// 	res.send('<!DOCTYPE html>' + markup);
-	// 	// });
-	// });
 
 
 	// catch 404 and forward to error handler
