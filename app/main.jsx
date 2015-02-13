@@ -1,22 +1,11 @@
 /** @jsx React.DOM */
 var React = require('react');
-
-var App = require('./App.jsx');
-var Item1 = require('./components/Item1.jsx');
-var Home = require('./components/Home.jsx');
+var router = require('./router.jsx');
 
 
-var Router = require('react-router');
-var DefaultRoute = Router.DefaultRoute;
-var Route = Router.Route;
-
-var routes = (
-  <Route name="app" path="/" handler={App}>
-    <Route name="item1" handler={Item1}/>
-    <DefaultRoute handler={Home}/>
-  </Route>
-);
-
-Router.run(routes, function (Handler) {
+router.run(function (Handler, state) {
+  // you might want to push the state of the router to a
+  // store for whatever reason
+  RouterActions.routeChange({routerState: state});
   React.render(<Handler/>, document.body);
 });

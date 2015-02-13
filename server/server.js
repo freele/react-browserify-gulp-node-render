@@ -20,12 +20,10 @@ var RouteHandler = Router.RouteHandler;
 require('node-jsx').install({
 	extension: '.jsx'
 });
-var ReactAsync = require('react-async');
 var React = require('react/addons');
 // var App = React.createFactory(require('../app/App.jsx'));
-var App = require('../app/App.jsx');
-var Home = require('../app/components/Home.jsx');
-var Item1 = require('../app/components/Item1.jsx');
+// var App = require('../app/App.jsx');
+var routes = require('../app/routes.jsx');
 
 var app = express();
 
@@ -75,15 +73,9 @@ var connectionString = 'mongodb://localhost:27017/' + dbName;
 
 	app.get('/', function(req, res){
 
-			var routes = 
-			  React.createElement(Route, {name: "app", path: "/", handler: App}, 
-			    React.createElement(Route, {name: "item1", handler: Item1}), 
-			    React.createElement(DefaultRoute, {handler: Home})
-			  )
-
-
+		console.log('TEST URL', req.path);
 		Router.run(routes, req.url, function(Handler) {
-			var content = React.renderToString( React.createElement(Handler, null) );
+			var content = React.renderToString(React.createElement(Handler, null));
 			res.render('index', {
 				body: content
 			});
