@@ -52,7 +52,6 @@ var browserifyTask = function (options) {
       .pipe(gulpif(!options.development, streamify(uglify())))
       .pipe(gulp.dest(options.dest))
       .pipe(gulpif(options.development, livereload()))
-      .pipe(server({path: './server/server.js'})) // Afrer loading vendor bundle start server
       .pipe(notify(function () {
         console.log('APP bundle built in ' + (Date.now() - start) + 'ms');
       }));
@@ -153,6 +152,13 @@ var cssTask = function (options) {
     }
 }
 
+var serverTask = function (options) {
+  'Start server';
+  server.listen({path: './server/server.js'}); // Afrer loading vendor bundle start server
+  gulp.watch(options.src, server.restart);
+}
+
+
 // Starts our development workflow
 gulp.task('default', function () {
 
@@ -166,6 +172,10 @@ gulp.task('default', function () {
     development: true,
     src: './styles/**/*.css',
     dest: './build'
+  });
+
+  serverTask({
+    src: './server/*'
   });
 
 });
