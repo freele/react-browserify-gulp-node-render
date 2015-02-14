@@ -72,33 +72,34 @@ var browserifyTask = function (options) {
   // in the application bundle
   if (options.development) {
 
-  	var testFiles = glob.sync('./specs/**/*-spec.js');
-		var testBundler = browserify({
-			entries: testFiles,
-			debug: true, // Gives us sourcemapping
-			transform: [reactify],
-			cache: {}, packageCache: {}, fullPaths: true // Requirement of watchify
-		});
+// _TODO uncomment all test tasks after test implementation
+  // 	var testFiles = glob.sync('./specs/**/*-spec.js');
+		// var testBundler = browserify({
+		// 	entries: testFiles,
+		// 	debug: true, // Gives us sourcemapping
+		// 	transform: [reactify],
+		// 	cache: {}, packageCache: {}, fullPaths: true // Requirement of watchify
+		// });
 
-    testBundler.external(dependencies);
+  //   testBundler.external(dependencies);
 
-  	var rebundleTests = function () {
-  		var start = Date.now();
-  		console.log('Building TEST bundle');
-  		testBundler.bundle()
-      .on('error', gutil.log)
-	      .pipe(source('specs.js'))
-	      .pipe(gulp.dest(options.dest))
-	      .pipe(livereload())
-	      .pipe(notify(function () {
-	        console.log('TEST bundle built in ' + (Date.now() - start) + 'ms');
-	      }));
-  	};
+  	// var rebundleTests = function () {
+  	// 	var start = Date.now();
+  	// 	console.log('Building TEST bundle');
+  	// 	testBundler.bundle()
+   //    .on('error', gutil.log)
+	  //     .pipe(source('specs.js'))
+	  //     .pipe(gulp.dest(options.dest))
+	  //     .pipe(livereload())
+	  //     .pipe(notify(function () {
+	  //       console.log('TEST bundle built in ' + (Date.now() - start) + 'ms');
+	  //     }));
+  	// };
 
-    // Uncomment after fixing tests implementation
-    testBundler = watchify(testBundler);
-    testBundler.on('update', rebundleTests);
-    rebundleTests();
+   //  // Uncomment after fixing tests implementation
+   //  testBundler = watchify(testBundler);
+   //  testBundler.on('update', rebundleTests);
+   //  rebundleTests();
 
     // Remove react-addons when deploying, as it is only for
     // testing
